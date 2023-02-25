@@ -8,8 +8,7 @@
 import UIKit
 import Photos
 
-class AlbumListVC: UIViewController {
-    
+class AlbumListVC: UIViewController, RequestAuth {    
     @IBOutlet weak var albumTableView: UITableView!
     let model = AlbumViewModel.viewModel
     
