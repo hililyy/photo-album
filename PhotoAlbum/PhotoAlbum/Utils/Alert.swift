@@ -19,3 +19,16 @@ func photoInfoAlert(_ photoInfo: photoInfo, _ controller: UIViewController) {
     alert.addAction(okAction)
     controller.present(alert, animated: true, completion: nil)
 }
+
+func simpleAlert(_ title: String, _ message: String, _ controller: UIViewController) {
+    let alert = UIAlertController(
+        title: title,
+        message: message,
+        preferredStyle: UIAlertController.Style.alert
+    )
+    
+    let okAction = UIAlertAction(title: "확인", style: .default)
+
+    alert.addAction(okAction)
+    controller.present(alert, animated: true, completion: nil)
+}

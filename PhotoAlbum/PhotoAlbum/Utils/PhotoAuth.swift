@@ -8,7 +8,7 @@
 import Foundation
 import Photos
 
-func photoAuth(completion: @escaping () -> ()) {
+func photoAuth(completion: @escaping () -> ()) throws {
     let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
     
     switch photoAuthorizationStatus {
@@ -33,5 +33,9 @@ func photoAuth(completion: @escaping () -> ()) {
         print("접근이 제한되었습니다.")
     default:
         break
+    }
+    
+    if photoAuthorizationStatus == .denied {
+        throw ErrorCase.noPhoto
     }
 }

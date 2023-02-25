@@ -15,11 +15,19 @@ class AlbumListVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = "앨범"
-        photoAuth {
-            self.model.albumsInfo = requestCollection()
-            DispatchQueue.main.async {
-                self.albumTableView.reloadData()
+        requestPhotoAuth()
+    }
+    
+    func requestPhotoAuth() {
+        do {
+            try photoAuth {
+                self.model.albumsInfo = requestCollection()
+                DispatchQueue.main.async {
+                    self.albumTableView.reloadData()
+                }
             }
+        } catch {
+            simpleAlert("접근 권한 없음", "설정에서 사진 접근 권한을 허용해주세요.", self)
         }
     }
 }
@@ -30,15 +38,22 @@ extension AlbumListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         guard let cell = self.albumTableView.dequeueReusableCell(withIdentifier: "AlbumListTableCell", for: indexPath) as? AlbumListTableCell else { return UITableViewCell() }
-        let img: PHAsset = model.albumsInfo[indexPath.item].asset.object(at: 0)
         
-        cell.albumTitle.text = model.albumsInfo[indexPath.item].name
-        cell.imageNum.text = "\(model.albumsInfo[indexPath.item].count)"
+        let title: String = model.albumsInfo[indexPath.item].name
+        let count: Int = model.albumsInfo[indexPath.item].count
+        
+        cell.albumTitle.text = title
+        cell.imageNum.text = "\(count)"
         cell.selectionStyle = .none
-        imageManager.requestImage(for: img, targetSize: CGSize(width: 70, height: 70), contentMode: .aspectFill, options: nil) { img, _ in
-            cell.recentImage.image = img
+        
+        do {
+            if try isEmptyAlbum(count: count) {
+                let img: PHAsset = model.albumsInfo[indexPath.item].asset.object(at: 0)
+                requestImage(img, cell)
+            }
+        } catch {
+            cell.recentImage.image = UIImage(named: "img_emptyAlbum")
         }
         return cell
     }

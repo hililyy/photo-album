@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 import Photos
 
 func requestCollection() -> [albumInfo] {
@@ -40,4 +41,19 @@ func requestCollection() -> [albumInfo] {
                 count: assetItem.count))
     }
     return albums
+}
+
+func isEmptyAlbum(count: Int) throws -> Bool {
+    if count == 0 {
+        throw ErrorCase.noPhoto
+    } else {
+        return true
+    }
+}
+
+func requestImage(_ img: PHAsset, _ cell: AlbumListTableCell) {
+    let imageManager: PHCachingImageManager = PHCachingImageManager()
+    imageManager.requestImage(for: img, targetSize: CGSize(width: 70, height: 70), contentMode: .aspectFill, options: nil) { img, _ in
+        cell.recentImage.image = img
+    }
 }
