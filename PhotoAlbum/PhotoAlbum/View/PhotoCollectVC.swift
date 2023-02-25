@@ -27,6 +27,8 @@ class PhotoCollectVC: UIViewController {
         flowlayout.minimumInteritemSpacing = spacing
         self.collectionView.collectionViewLayout = flowlayout
         self.navigationItem.title = model.albumName
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.tintColor = .black
     }
 }
 
