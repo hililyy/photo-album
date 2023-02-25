@@ -16,12 +16,10 @@ class PhotoViewModel {
     
     func getFileNameAndSize(index: Int) -> photoInfo {
         var data = photoInfo()
-        
         let asset = self.pictures.object(at: index)
         var byte: String = ""
         let resources = PHAssetResource.assetResources(for: asset)
         let filename = resources.first!.originalFilename
-        
         var sizeOnDisk: Int64 = 0
         if let resource = resources.first {
             let unsignedInt64 = resource.value(forKey: "fileSize") as? CLong
@@ -30,7 +28,6 @@ class PhotoViewModel {
         }
         data.name = filename
         data.size = byte
-        
         return data
     }
 }
