@@ -19,9 +19,3 @@ func photoInfoAlert(_ photoInfo: photoInfo, _ controller: UIViewController) {
     alert.addAction(okAction)
     controller.present(alert, animated: true, completion: nil)
 }
-
-
-// 권한 거부시
-// 사진은 없고 앨범만 있을때
-// 현재 보고있는 사진이 삭제됐을때
-// 이미지 크기가 너무 클때 로딩

@@ -12,18 +12,6 @@ class AlbumListVC: UIViewController {
     
     @IBOutlet weak var albumTableView: UITableView!
     let model = AlbumViewModel.viewModel
-    let imageManager: PHCachingImageManager = PHCachingImageManager()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationItem.title = "앨범"
-        photoAuth {
-            self.model.albumsInfo = requestCollection()
-            DispatchQueue.main.async {
-                self.albumTableView.reloadData()
-            }
-        }
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.title = "앨범"

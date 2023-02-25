@@ -10,7 +10,6 @@ import Photos
 
 class PhotoCollectVC: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
-    
     let model = PhotoViewModel.model
     let half: Double = Double(UIScreen.main.bounds.width / 3 - 6)
 
@@ -27,7 +26,6 @@ class PhotoCollectVC: UIViewController {
         flowlayout.minimumLineSpacing = spacing
         flowlayout.minimumInteritemSpacing = spacing
         self.collectionView.collectionViewLayout = flowlayout
-        
         self.navigationItem.title = model.albumName
     }
 }
